@@ -31,9 +31,13 @@ class Startup
     end
 
     def pay_employee(employee)
-        if funding > @salaries.sum
-            pay(@salaries[employee.title])
-            funding -= @salaries[employee.title]
+        total_funding = 0
+        @salaries.each_value { |salary| total_funding += salary}
+
+        if funding > total_funding
+            employee_salary = @salaries[employee.title]
+            employee.pay(employee_salary)
+            funding -= employee_salary
         else
             return error
         end
