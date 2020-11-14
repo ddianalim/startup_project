@@ -48,4 +48,27 @@ class Startup
             pay_employee(employee)
         end
     end
+
+    def average_salary
+        total = 0
+        @salaries.each_value { |salary| total += salary }
+        total / @salaries.length + 1.0
+    end
+    
+    def close
+        @employees = []
+        @funding = 0
+    end
+
+    def acquire(new_startup)
+        @funding += new_startup.funding
+        new_startup.salaries.each do |title, salary| 
+            @salaries[title] = salary
+        end
+
+        new_startup.employees.each do |employee|
+            @employees << employee
+        end
+        new_startup.close
+    end
 end
