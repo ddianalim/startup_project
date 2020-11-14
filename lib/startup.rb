@@ -34,10 +34,11 @@ class Startup
         total_funding = 0
         @salaries.each_value { |salary| total_funding += salary}
 
-        if funding > total_funding
+        if @funding > total_funding
+            # debugger
             employee_salary = @salaries[employee.title]
             employee.pay(employee_salary)
-            funding -= employee_salary
+            @funding -= employee_salary
         else
             return error
         end
@@ -63,7 +64,9 @@ class Startup
     def acquire(new_startup)
         @funding += new_startup.funding
         new_startup.salaries.each do |title, salary| 
-            @salaries[title] = salary
+            if !@salaries.has_key?(title)
+                @salaries[title] = salary
+            end
         end
 
         new_startup.employees.each do |employee|
