@@ -20,10 +20,10 @@ class Startup
     end
 
     def hire(employee_name, title)
-        if !valid_title?(title)
-            return error
-        else
+        if valid_title?(title)
             @employees << Employee.new(employee_name, title)
+        else
+            raise "title is not valid!"
         end
     end
 
@@ -32,11 +32,12 @@ class Startup
     end
 
     def pay_employee(employee)
-        if @funding < @salaries.values.sum
-            raise Exception.new "error!"
+        employee_salary = @salaries[employee.title]
+        if @funding >= employee_salary
+            employee.pay(employee_salary)
+            @funding -= employee_salary
         else
-            employee.pay(@salaries[employee.title])
-            @funding -= @salaries[employee.title]
+            raise "not enough funding to pay employee!"
         end
     end
 
