@@ -11,7 +11,8 @@ class Startup
     end
 
     def valid_title?(title)
-        @salaries.keys.include?(title)
+        # @salaries.keys.include?(title)
+        @salaries.has_key?(title)
     end
 
     def >(startup)
@@ -31,13 +32,11 @@ class Startup
     end
 
     def pay_employee(employee)
-        total_funding = @salaries.values.sum
-
-        if @funding >= total_funding
+        if @funding < @salaries.values.sum
+            raise Exception.new "error!"
+        else
             employee.pay(@salaries[employee.title])
             @funding -= @salaries[employee.title]
-        else
-            raise StandardError
         end
     end
 
