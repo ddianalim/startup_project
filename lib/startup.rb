@@ -34,13 +34,13 @@ class Startup
         total_funding = 0
         @salaries.each_value { |salary| total_funding += salary}
 
-        if @funding > total_funding
+        if @funding >= total_funding
             # debugger
             employee_salary = @salaries[employee.title]
             employee.pay(employee_salary)
             @funding -= employee_salary
         else
-            return error
+            raise StandardError.new "Error!!"
         end
     end
 
@@ -52,8 +52,9 @@ class Startup
 
     def average_salary
         total = 0
+        debugger
         @salaries.each_value { |salary| total += salary }
-        total / @salaries.length + 1.0
+        total / @salaries.length
     end
     
     def close
