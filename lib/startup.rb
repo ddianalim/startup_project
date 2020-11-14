@@ -42,13 +42,11 @@ class Startup
     end
 
     def payday
-        @employees.each do |employee|
-            pay_employee(employee)
-        end
+        @employees.each { |employee| self.pay_employee(employee) }
     end
 
     def average_salary
-        @salaries.values.sum / @salaries.length
+        @salaries.values.sum / @salaries.size
     end
     
     def close
