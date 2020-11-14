@@ -65,10 +65,10 @@ class Startup
                 @salaries[title] = salary
             end
         end
-
-        new_startup.employees.each do |employee|
-            @employees << employee
-        end
+        @employees += new_startup.employees
+        # new_startup.employees.each do |employee|
+        #     @employees << employee
+        # end
         new_startup.close
     end
 end
